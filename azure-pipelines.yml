@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Free Trial(2d7ed007-7b5d-47aa-90f5-b64e75156c1c)'
+    subscriptionId: '2d7ed007-7b5d-47aa-90f5-b64e75156c1c'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'Demo_group'
+    location: 'Central US'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/TARUN1706/AzurePipeline/master/createWebApp/azuredeploy.json'
+    overrideParameters: '-projectName PaasResourceBuild'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
